@@ -232,6 +232,12 @@ install_python() {
 
 	shift $((OPTIND - 1))
 
+	if [[ $# -eq 0 && -n $PYTHON_VERSIONS ]]; then
+		# intentionally unquoted
+		# shellcheck disable=SC2086
+		set -- $PYTHON_VERSIONS
+	fi
+
 	if [[ $# -eq 0 && -z $PYENV_VERSION ]]; then
 		usage 1
 	fi
@@ -252,5 +258,5 @@ install_python() {
 		shift
 	done
 
-	exit $fail
+	return $fail
 }
