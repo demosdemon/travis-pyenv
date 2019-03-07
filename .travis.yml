@@ -1,10 +1,11 @@
-language: python
+language: minimal
 dist: trusty
 matrix:
   include:
     - name: Shellcheck static analysis
       env: SHELLCHECK=1 SETUP_SCRIPT=/dev/null
     - name: Normal method of specifying Python version
+      language: python
       python: "2.7"
     - name: Use PYENV_VERSION with CPython, specific major.minor.change version
       env: PYENV_VERSION=3.6.1 PYENV_VERSION_STRING='Python 3.6.1'
@@ -25,14 +26,12 @@ matrix:
     # check can attest, we are still fine.
     - name: macOS
       os: osx
-      language: ruby
       env: PYENV_VERSION=3.6.1 PYENV_VERSION_STRING='Python 3.6.1'
     # macOS Framework Build
     # Useful for PyInstaller
     # Example issue: https://github.com/pyenv/pyenv/issues/443
     - name: macOS Framework Build
       os: osx
-      language: ruby
       env: PYENV_VERSION=3.6.1 PYENV_VERSION_STRING='Python 3.6.1' PYTHON_CONFIGURE_OPTS="--enable-framework"
     - name: Multiple pythons
       env: PYTHON_VERSIONS="3.6.1 2.7.14 pypy2.7-5.8.0 pypy3.5-5.8.0" SETUP_SCRIPT=multi-pyenv.sh
@@ -41,11 +40,9 @@ matrix:
       env: PYTHON_VERSIONS="3.7.2 2.7.15 pypy2.7-7.0.0 pypy3.6-7.0.0" SETUP_SCRIPT=multi-pyenv.sh
     - name: Multiple pythons on osx
       os: osx
-      language: ruby
       env: PYTHON_VERSIONS="3.6.1 2.7.14 pypy2.7-5.8.0" SETUP_SCRIPT=multi-pyenv.sh
     - name: Multiple newer pythons on osx
       os: osx
-      language: ruby
       env: PYTHON_VERSIONS="3.7.2 2.7.15 pypy2.7-7.0.0 pypy3.6-7.0.0" SETUP_SCRIPT=multi-pyenv.sh
 
 cache:
