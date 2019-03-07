@@ -1,5 +1,11 @@
 language: minimal
 dist: trusty
+branches:
+  only:
+    - master
+    - develop
+    - fork
+
 matrix:
   include:
     - name: Shellcheck static analysis
