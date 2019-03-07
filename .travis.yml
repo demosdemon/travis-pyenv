@@ -54,7 +54,7 @@ cache:
       - "${PYENV_CACHE_PATH:-$HOME/.pyenv_cache}"
 
 script:
-  - source "${SETUP_SCRIPT:-setup-pyenv.sh}" -d
+  - source "${SETUP_SCRIPT:-setup-pyenv.sh}"
   - pyenv --version
   - pyenv versions
   - python --version

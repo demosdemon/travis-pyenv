@@ -9,6 +9,18 @@ export PYENV_CACHE_PATH
 _verbose=0
 _debug=0
 
+if [[ -n $CI ]]; then
+	_verbose=1
+	_debug=1
+fi
+
+__travis() {
+	local action=$1 name=$2
+	if [[ $TRAVIS == true ]]; then
+		echo -en "travis_fold:${action}:${name}\\r\\033[0K"
+	fi
+}
+
 __msg() {
 	local -r level=$1
 	shift
@@ -242,11 +254,14 @@ install_python() {
 		usage 1
 	fi
 
+	__travis start setup-pyenv
 	install_pyenv
 	echo -n > "$PYENV_ROOT/version"
+	__travis end setup-pyenv
 
 	fail=0
 	while (($#)); do
+		__travis start "$1"
 		__info "Installing Python $1"
 		if install_python "$1"; then
 			__info "Success!"
@@ -255,6 +270,7 @@ install_python() {
 			__warn "Failed to install Python $1"
 			fail+=1
 		fi
+		__travis end "$1"
 		shift
 	done
 
