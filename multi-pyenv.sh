@@ -256,6 +256,8 @@ install_python() {
 
 	__travis start setup-pyenv
 	install_pyenv
+	# doesn't exist sometimes
+	mkdir -p "$PYENV_ROOT/versions"
 	echo -n > "$PYENV_ROOT/version"
 	__travis end setup-pyenv
 
